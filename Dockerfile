@@ -1,14 +1,14 @@
 # === Build Stage ===
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+#FROM maven:3.9.6-eclipse-temurin-17 AS build
 
-WORKDIR /app
+#WORKDIR /app
 
 # Copy pom and source code
-COPY pom.xml .
-COPY src ./src
+#COPY pom.xml .
+#COPY src ./src
 
 # Build the application
-RUN mvn clean package -DskipTests
+#RUN mvn clean package -DskipTests
 
 # === Runtime Stage ===
 FROM openjdk:17-jdk-slim
@@ -16,7 +16,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the jar from the build stage
-COPY --from=build /app/target/spring-boot.jar app.jar
-
+#COPY --from=build /app/target/spring-boot.jar app.jar
+COPY target/spring-boot-app.jar /app/spring-boot-app.jar
 # Run the app
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "spring-boot-app.jar"]
